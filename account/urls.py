@@ -7,5 +7,6 @@ urlpatterns = [
     path('logout',views.logout,name="logout" ),
     path('teacher-signup',views.teacher_signup,name="teacher-signup" ),
     path('student-signup',views.student_signup,name="student-signup" ),
+    path('update_profile',views.update_profile,name="update_profile"),
     # path('docs/', include("sphinxdoc.urls")),
 ]
