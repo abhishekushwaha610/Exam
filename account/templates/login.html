@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Login {% endblock title %}
+{% block style %}{% endblock style %}
+{% block content %}
+<section>
+    <div class="row mt-5 align-items-center">
+        <div class="col-md-7">
+            <div class="container col-md-6  card shadow text-center px-0">
+                <div class="card-header">
+                    <h4 class="d-flex align-items-center justify-content-center">
+                        <span class="material-icons mr-3"> person </span>
+                        <span> Login</span>
+                    </h4>
+                </div>
+                <form class="form-group p-3" action="" id="login-form" method="POST"> {% csrf_token %}
+                    <input type="email" class="form-control " name="email" placeholder="Email address">
+                    <input type="password" class="form-control mt-4" name="password" placeholder="Password">
+                    
+                    <button type="submit" class="btn bg-purple mt-4 text-light" style="width: 100%;">
+                        <span id="login-button-name">Login</span>
+                        <div id="login-loding" class="spinner-border text-light" role="status" style="display: none;">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </button>
+                </form>
+                <b>Or</b>
+                <a class="my-3" href="{% url 'signup' %}"> Singup Here</a>
+            </div>
+        </div>
+        <div class="col d-flex">
+            <img class="" src="{% static 'images/login-bg.png' %}" alt="">
+
+        </div>
+    </div>
+</section>
+{% endblock content %}
+{% block script %}
+<script>
+    $("#login-form").submit(()=>{
+        $("#login-button-name").hide()
+        $("#login-loding").show()
+    })
+</script>
+{% endblock script %}

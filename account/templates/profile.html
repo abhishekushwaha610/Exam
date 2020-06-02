@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %} {{name}} {% endblock title %}
+{% block content %}
+
+<section>
+    <div class="row mt-5">
+        <div class="col-md-4 ">
+            <div class="card m-4 shadow">
+                <h5 class="d-flex align-items-center card-header">
+                    <span class="material-icons mr-3"> person </span>
+                    <span> Profile</span>
+                </h5>
+                <div class="card-body">
+                    <h4> {{user.first_name }} </h4>
+                    <p>{{user.username}}</p>
+                    <b><p>{{user.student.college}}</p> </b>
+                    <P>Semense : {{user.student.sem}}</P>
+                    <p>Sub: {{user.student.branch}}</p>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+        <div class="col m-4">
+            <div class="card shadow ">
+                <div class="card-body">
+                    <h5 class="d-flex align-items-center">
+                        <span class="material-icons mr-2"> chrome_reader_mode </span>
+                        Exam
+                    </h5>
+                    <table class="table  table-striped">
+                        <tbody>
+                            <tr>
+                                <td>Machinle Learning </td>
+                                <td> 02/02/1919 </td>
+                                <td>
+                                    <button class="ml-auto btn btn-outline-danger">Start Now</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- previous exam -->
+            <div class="card shadow mt-3">
+                <div class="card-body">
+                    <h5 class="d-flex align-items-center">
+                        <span class="material-icons mr-2"> history </span>
+                        Recent Exams
+                    </h5>
+                    <table class="table  table-striped">
+                        <tbody>
+                            <tr>
+                                <td>Machinle Learning </td>
+                                <td><b>2:30</b> 02/02/1919 </td>
+                                <td>
+                                    <button class="ml-auto btn btn-outline-success">View Result</button>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                <div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+</section>
+
+{% endblock content %}

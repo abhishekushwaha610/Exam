@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Login {% endblock title %}
+{% block style %}{% endblock style %}
+{% block content %}
+<section>
+    <div class="row mt-5 align-items-center" style="width: 100%;">
+        <div class="col-md-5">
+            <img class="container" src="{% static 'images/teacher-bg.png' %}" alt="">
+
+        </div>
+        <div class="col-md-7">
+            <div class="container col-md-7  card shadow text-center px-0">
+                <div class="card-header">
+                    <h4 class="d-flex align-items-center justify-content-center">
+                        <span class="material-icons mr-3"> person_add </span>
+                        <span> Teacher Signup</span>
+                    </h4>
+                </div>
+                <form class="form-group p-3 px-4" action="{% url 'teacher-signup' %}" method="POST" id="login-form">{% csrf_token %}
+                    <input type="email" class="form-control border-dark" name="email" placeholder="Email address" value="{{request.session.email}}">
+                    <input type="text" class="form-control my-4 border-dark" name="name" placeholder="Full Name">
+                    <input type="text" class="form-control my-4 border-dark" name="cname" placeholder="College Name">
+                    <input type="password" class="form-control border-dark" name="password" placeholder="Password">
+                    <!-- <select name="sem" class="custom-select mt-4 border-dark" id="inlineFormCustomSelect">
+                        <option selected disabled>Semester...</option>
+                        <option value="1">1 Semester</option>
+                        <option value="2">2 Semester</option>
+                        <option value="3">3 Semester</option>
+                        <option value="4">4 Semester</option>
+                        <option value="5">5 Semester</option>
+                        <option value="6">6 Semester</option>
+                        <option value="7">7 Semester</option>
+                        <option value="8">8 Semester</option>
+                    </select> -->
+                    <select name="sub" class="custom-select mt-4 border-dark" id="inlineFormCustomSelect">
+                        <option selected disabled>Branch...</option>
+                        <option value="cs">Computer Science</option>
+                    </select>
+
+                    <button type="submit" class="btn bg-purple mt-4 text-light" style="width: 100%;">
+                        <span id="login-button-name">Sign up</span>
+                        <div id="login-loding" class="spinner-border text-light" role="status" style="display: none;">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+{% block script %}
+<script>
+    $("#login-form").submit(()=>{
+        $("#login-button-name").hide()
+        $("#login-loding").show()
+    })
+</script>
+{% endblock script %}

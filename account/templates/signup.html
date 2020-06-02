@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Sign up {% endblock title %}
+{% block style %}{% endblock style %}
+{% block content %}
+<section>
+    <div class="row mt-5 align-items-center">
+        <div class="col-md-7">
+            <div class="container col-md-6  card shadow text-center px-0">
+                <div class="card-header">
+                    <h4 class="d-flex align-items-center justify-content-center">
+                        <span class="material-icons mr-3"> person_add </span>
+                        <span> Sign up</span>
+                    </h4>
+                </div>
+                <form class="form-group p-3" action="" id="login-form">
+                    <input type="email" class="form-control border-dark" name="email" placeholder="Email address">
+                    <select name="type" class="custom-select mt-4 border-dark" id="inlineFormCustomSelect">
+                        <option selected disabled>I am...</option>
+                        <option value="student">A Student</option>
+                        <option value="teacher">A Teacher</option>
+                        <!-- <option value="3">Three</option> -->
+                    </select>
+                    
+                    <button type="submit" class="btn bg-purple mt-4 text-light" style="width: 100%;">
+                        <span id="login-button-name">Get Start</span>
+                        <div id="login-loding" class="spinner-border text-light" role="status" style="display: none;">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </button>
+                </form>
+                <b>Or</b>
+                <a class="my-3" href="{% url 'login' %}">Login  Here</a>
+            </div>
+        </div>
+        <div class="col d-flex">
+            <img  src="{% static 'images/signup-bg.png' %}" alt="">
+
+        </div>
+    </div>
+</section>
+{% endblock content %}
+{% block script %}
+<script>
+    $("#login-form").submit(()=>{
+        $("#login-button-name").hide()
+        $("#login-loding").show()
+    })
+</script>
+{% endblock script %}
