@@ -70,4 +70,52 @@ def logout(request):
 
 
 def profile(request,slug):
-    return render(request,"profile.html",{"name":slug})
+    if who_that(request.user):
+        return render(request,"profile.html",{"type":"student"})
+    else:
+        return render(request,"profile.html",{"type":"teacher"})
+
+def update_profile(request):
+    if request.method == "POST":
+        email = request.POST["email"]
+        name = request.POST["name"]
+        cname = request.POST["cname"]
+        # password = request.POST["password"]
+        sem = request.POST.get("sem",None)
+        sub = request.POST["sub"]
+       
+        request.user.username = email
+        request.user.first_name = name
+        # request.user.password = password
+        # print(email,name,cname,sem,sub)
+        request.user.save()
+        
+        if who_that(request.user):  
+            request.user.student.college = cname
+            request.user.student.sem = sem
+            request.user.student.branch = sub
+            request.user.student.save()
+        
+        else:
+            request.user.teacher.college = cname
+            request.user.teacher.branch = sub
+            request.user.teacher.save()
+        return redirect("profile",request.user.username)
+
+
+    if who_that(request.user):
+        return render(request,"update_profile.html",{"type":"student"})
+    else:
+        return render(request,"update_profile.html",{"type":"teacher"})
+
+
+
+def who_that(user):
+    try:
+        user.teacher
+        return False
+    except:
+        return True
+
+
+

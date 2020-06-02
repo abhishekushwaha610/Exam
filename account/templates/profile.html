@@ -9,13 +9,24 @@
                 <h5 class="d-flex align-items-center card-header">
                     <span class="material-icons mr-3"> person </span>
                     <span> Profile</span>
+                    <!-- <span class="ml-3">Update Profile</span> -->
                 </h5>
                 <div class="card-body">
                     <h4> {{user.first_name }} </h4>
                     <p>{{user.username}}</p>
+                    
+                    {% if type == "student" %}
                     <b><p>{{user.student.college}}</p> </b>
                     <P>Semense : {{user.student.sem}}</P>
                     <p>Sub: {{user.student.branch}}</p>
+                    {% else %}
+                    <b><p>{{user.teacher.college}}</p> </b>
+                    <P>Semense : {{user.teacher.sem}}</P>
+                    <p>Sub: {{user.teacher.branch}}</p>
+                    {% endif %}
+
+                    <p>i am a {{ type }}</p>
+                    <a href="{% url 'update_profile' %}?q={{type}}"><p><button class="ml-auto btn btn-outline-success">Update Profile</button></p></a>
                 </div>
                 <div class="card-footer"></div>
             </div>
