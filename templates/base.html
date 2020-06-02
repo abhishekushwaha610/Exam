@@ -39,10 +39,21 @@
                 <span>Logout</span>
               </a>
               {% else %}
-              <a class="nav-link align-items-center d-flex" href="{% url 'login' %}">
-                <span class="material-icons mr-2"> person </span>
-                <span>Login</span>
-              </a>
+              <div class="dropdown dropleft">
+                <a class="nav-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Get Start
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item align-items-center d-flex" href="{% url 'login' %}">
+                    <span class="material-icons mr-2"> person </span>
+                    <span>Login</span>
+                  </a>
+                  <a class="dropdown-item align-items-center d-flex" href="{% url 'signup' %}">
+                    <span class="material-icons mr-2"> person_add </span>
+                    <span>Signup</span>
+                  </a>
+                </div>
+              </div>
               {% endif %}
         </li>
       </ul>
