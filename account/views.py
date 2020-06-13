@@ -82,7 +82,7 @@ def update_profile(request):
         cname = request.POST["cname"]
         # password = request.POST["password"]
         sem = request.POST.get("sem",None)
-        sub = request.POST["sub"]
+        sub = request.POST.get("sub",None)
        
         request.user.username = email
         request.user.first_name = name
@@ -92,13 +92,15 @@ def update_profile(request):
         
         if who_that(request.user):  
             request.user.student.college = cname
-            request.user.student.sem = sem
-            request.user.student.branch = sub
+            if sem and sub:
+                request.user.student.sem = sem
+                request.user.student.branch = sub
             request.user.student.save()
         
         else:
             request.user.teacher.college = cname
-            request.user.teacher.branch = sub
+            if sub:
+                request.user.teacher.branch = sub
             request.user.teacher.save()
         return redirect("profile",request.user.username)
 

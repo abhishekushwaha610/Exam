@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block title %} {{name}} {% endblock title %}
 {% block content %}
 
@@ -24,7 +26,7 @@
                     <P>Semense : {{user.teacher.sem}}</P>
                     <p>Sub: {{user.teacher.branch}}</p>
                     {% endif %}
-
+                    
                     <p>i am a {{ type }}</p>
                     <a href="{% url 'update_profile' %}?q={{type}}"><p><button class="ml-auto btn btn-outline-success">Update Profile</button></p></a>
                 </div>
@@ -32,21 +34,83 @@
             </div>
         </div>
         <div class="col m-4">
-            <div class="card shadow ">
+            {% if type == "teacher" %}
+            <div class="card shadow">
+                <span class="card-body d-flex">
+                    <h5>
+                        <span class="material-icons">add</span>
+                        Add Exam
+                    </h5>
+                    <a class="ml-auto btn p-0 " href="#" id="addExamButton"><span class="material-icons text-success" id="addExamIcon"> addchart </span></a>
+                </span>
+                <form action="{% url 'add-exam' %}" method="POST"  class="form-group px-4" id="addExam" style="display: none;"> 
+                    {% csrf_token %}
+                    <div class="form-inline">
+                        <span class="m font-weight-bold">Exam Name</span>
+                        <input type="text" name="ename" class="form-control border-dark mx-3" style="width: 100%;">
+                    </div>
+                    <div class="form-group mt-3">
+                        <span>Semester </span>
+                        <select name="sem" class="custom-select ml-5 border-dark" id="inlineFormCustomSelect" style="width: 40%;">
+                            <option selected disabled>Semester...</option>
+                            <option value="1">1 Semester</option>
+                            <option value="2">2 Semester</option>
+                            <option value="3">3 Semester</option>
+                            <option value="4">4 Semester</option>
+                            <option value="5">5 Semester</option>
+                            <option value="6">6 Semester</option>
+                            <option value="7">7 Semester</option>
+                            <option value="8">8 Semester</option>
+                        </select>
+                    </div>
+                    <div class="form-inline">
+                        <label for="startDate">Exam Date</label>
+                        <input type="date" class="form-control mx-4" id="startDate" name="startDate">
+                        
+                        <label for="startTime">Start Time</label>
+                        <input class="form-control mx-4" type="time" id="startTime" name="startTime">
+                        
+                        <label for="endTime">End Time</label>
+                        <input type="time" class="form-control mx-4" id="endTime" name="endTime">
+                        
+
+                    </div>
+                    <h4 class="ml-auto text-info mr-5" id="showTime"></h4>
+                    <button type="submit"  class="btn btn-success mt-3"> Create Session</button>
+                </form>
+            </div>
+            {% endif %}
+            <div class="card shadow mt-3">
                 <div class="card-body">
                     <h5 class="d-flex align-items-center">
                         <span class="material-icons mr-2"> chrome_reader_mode </span>
                         Exam
                     </h5>
                     <table class="table  table-striped">
-                        <tbody>
+                        <thead>
                             <tr>
-                                <td>Machinle Learning </td>
-                                <td> 02/02/1919 </td>
+                                <th>Name</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Date</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for exam in request.user.teacher.exam_set.all reversed %}
+                            <tr>
+                                <td> {{exam.name}} </td>
+                                <td> {{exam.start_time}} </td>
+                                <td> {{exam.end_time}} </td>
+                                <td> {{exam.start_date}} </td>
                                 <td>
-                                    <button class="ml-auto btn btn-outline-danger">Start Now</button>
+                                    <a href="{% url 'add-question' 'add' exam.unique %}" class="ml-auto btn btn-outline-success">Add Questions</a>
+                                </td>
+                                <td>
+                                    <a href="#" class="material-icons text-danger" onclick="return confirm('Are you sure ??');"> delete </a>
                                 </td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -79,3 +143,29 @@
 </section>
 
 {% endblock content %}
+{% block script %}
+<script src="{% static 'js/time.js' %}"></script>
+<script>
+    $("#addExamButton").click(() => {
+        if ($("#addExamIcon").text() == "cancel" ) {
+            $("#addExamIcon").text("addchart").removeClass("text-danger").addClass("text-success");
+            $("#addExam").slideUp();
+        }else{
+        $("#addExamIcon").text("cancel").removeClass("text-success").addClass("text-danger");
+        $("#addExam").slideToggle(500);
+        }
+    })
+
+    // $("#addExam").submit(() => {
+    //     $.ajax()
+    // })
+        $("#endTime").change(()=>{
+            var startTime = $("#startTime").val();
+            var endTime = $("#endTime").val();
+            $("#showTime").text("Duration: "+calculateHour(endTime,startTime)+" min")
+            // alert(endTime)
+        })
+        function timeGen(){
+        }
+</script>
+{% endblock script %}

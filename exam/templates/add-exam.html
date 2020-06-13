@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %} Exam Add {% endblock title %}
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="card card-body shadow mt-5">
+            <form action="" class="form-group">
+                <div class="d-flex justify-content-between">
+                    <span class="m">Exam Name</span>
+                    <input type="text" class="form-control border-dark mx-3">
+                    <span>Semester </span>
+                    <select name="sub" class="custom-select ml-3 border-dark" id="inlineFormCustomSelect">
+                        <option selected disabled>Branch...</option>
+                        <option value="1">Computer Science</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Exam Hai ye!{% endblock title %}
+{% block content%}
+<section>
+    <div class="bg-purple" style="height: 650px;">
+        <div class="" align="center" style="padding-top: 100px;">
+            <span style="color: white;font-size: 80px;font-family: Times; padding-top: 100px;width: 80%;">
+                Give Your Exam,,<br> West practicce for you
+            </span><br>
+            <a href="{% url 'signup' %}" class="btn btn-outline-light mt-5">Get Started</a>
+        </div>
+    </div>
+</section>
+{% endblock content%}
+{% block script%}
+<script>
+    $(".navbar").removeClass("bg-purple").addClass("bg-ping")
+    // $(".navbar").css(backgroundColor,"text-purple")
+</script>
+{% endblock script%}

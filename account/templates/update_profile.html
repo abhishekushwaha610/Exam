@@ -30,7 +30,7 @@
                     
                     {% if type == "student" %} 
                     
-                    <select name="sem" class="custom-select mt-4 border-dark" id="inlineFormCustomSelect">
+                    <select name="sem" class="custom-select mt-4 border-dark" id="inlineFormCustomSelect" value="1">
                         <option selected disabled>Semester...</option>
                         <option value="1">1 Semester</option>
                         <option value="2">2 Semester</option>
@@ -44,7 +44,7 @@
                     {% endif %}
                     <select name="sub" class="custom-select mt-4 border-dark" id="inlineFormCustomSelect">
                         <option selected disabled>Branch...</option>
-                        <option value="1">Computer Science</option>
+                        <option value="cs">Computer Science</option>
                     </select>
                     <button type="submit" class="btn bg-purple mt-4 text-light" style="width: 100%;">
                         <span id="login-button-name">Update Profile</span>

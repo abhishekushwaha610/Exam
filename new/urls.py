@@ -16,8 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from account.views import profile
+from home.views import home
+from exam.views import delete_question
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('tinymce/', include("tinymce.urls")),
     path('account/', include("account.urls")),
+    path('exam/', include("exam.urls")),
+    path('delete-question/',delete_question,name="delete-question"), # 
+
+    path('',home,name="home"),
     path('<slug>', profile,name='profile'),
+
 ]

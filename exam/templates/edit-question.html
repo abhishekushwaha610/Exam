@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{%block title%}
+Edit | {{exam.name}}
+{%endblock title%}
+{% block style %}
+{{content.media}}
+{% endblock style %}
+{% block content %}
+<section class="container">
+    <div class="card card-body shadow my-5">
+        <h5 class="d-flex align-items-center"><span class="material-icons mr-2">label</span> {{exam.name}}</h5><hr>
+        <form action="{% url 'edit-question' question.id exam.unique %}" method="POST" id="form"> {% csrf_token %}
+            <div class="form-group">
+                <!-- <p class="">Question  Name</p> -->
+                <div class="d-flex">
+                    {{content}}
+                </div>
+            </div>
+            <div class="form-inline">
+            <!-- <input type="text"  class="form-control border-dark mx-3" style="width: 80%;" placeholder="Your Question" name="question"> -->
+            <div class="form-group mt-5">
+                <!-- option-1 -->
+                <div class="" id="optionshai">
+                {% for option in question.options_set.all %}
+                    <div>
+                        <input type="text" class="form-control border-dark" placeholder="Option-{{forloop.counter}}" name = "option-{{forloop.counter}}" value="{{option.option}}">
+                        <div class="form-inline mt-2">
+                            <input type="checkbox" name="checkbox{{forloop.counter}}" class="mr-3" id= "check{{forloop.counter}}" {% if option.is_true %}checked{%endif%} >
+                            <label for="check{{forloop.counter}}">Make It Answer</label>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+                <input type="hidden" name="hidden" id="hidden" value="{{forloop.counter}}">
+                <button type="button" onclick="addOption()" class="btn bg-dark text-white d-flex align-items-center mr-4">
+                    <span class="material-icons mr-2"> library_add </span>                                
+                    Add more option
+                </button>
+            </div>
+            <div class="form-group mt-5" id="addMoreOption">
+                        
+                        
+                    </div>
+                    <div class="d-flex" style="width: 100%;">
+                        <button type="submit" class="btn bg-success text-white ml-4 mt-5 d-flex align-items-center">
+                            <span class="material-icons mr-2">save</span>
+                            Save Change
+                        </button>
+                        <a href="{% url 'add-question' 'add' exam.unique %}" class="btn bg-danger text-white ml-4 mt-5 d-flex align-items-center">
+                            <span class="material-icons mr-2">cancel</span>
+                            Cancel
+                        </a>
+                        <em class="text-primary mt-5 pt-1 ml-5" style="display: none;"> <b>Redirecting....</b> </em>
+                    </div>
+                
+                </div>
+        </form>
+    </div>
+</div>
+
+</section>
+{% endblock content %}
+{% block script %}
+<script>
+    var n = $("#optionshai").children().length
+    $("#hidden").val(Number(n)-1)
+    var num = n+1;
+function  addOption() {
+    if (num <= 8 ) {
+    var space = "";
+    if (num%2 ===0) {
+        space = "mx-3";
+    }
+    $("#hidden").val(Number($("#hidden").val())+1)
+$("#addMoreOption").append("<div class='"+ space +"' >"+
+                                "<input type='text' class='form-control border-danger' placeholder='Option-"+num+" (Optional)' name = 'option-"+num+"'>"+
+                                "<div class='form-inline mt-2'>"+
+                                    "<input type='checkbox' class='mr-4' name='checkbox"+num +"' id= 'check"+num+"'>"+
+                                    "<label for='check"+num+"'>Make It Answer</label>"+
+                                "</div>"+
+                            "</div>")
+num = num+1;
+console.log(num);
+    }
+}
+// ==============================================================
+$("form").submit(() => {
+    $("em").show()
+})
+
+</script>
+{% endblock script %}
